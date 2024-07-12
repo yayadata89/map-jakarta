@@ -32,3 +32,72 @@ ax.set_xlabel('Longitude')
 ax.set_ylabel('Latitude')
 
 plt.show()
+
+import matplotlib.pyplot as plt
+import geopandas as gpd
+
+# Load a real map of Jakarta
+jakarta_map = gpd.read_file(gpd.datasets.get_path('nybb'))  # This dataset is not Jakarta, but used for example
+jakarta_map = jakarta_map[jakarta_map['BoroName'] == 'Manhattan']  # Filtering for Manhattan as an example
+
+# Generate dummy election results for districts
+jakarta_map['Anies'] = [5.0, 4.0, 3.0, 2.0, 1.0]  # Dummy data
+jakarta_map['Prabowo'] = [5.0, 4.0, 3.0, 2.0, 1.0] 
+jakarta_map['Ganjar'] = [5.0, 4.0, 3.0, 2.0, 1.0]
+
+# Determine the winner in each district
+jakarta_map['Winner'] = jakarta_map[['Anies', 'Prabowo', 'Ganjar']].idxmax(axis=1)
+
+# Define a color map for the candidates
+color_map = {'Anies': 'blue', 'Prabowo': 'red', 'Ganjar': 'green'}
+jakarta_map['Color'] = jakarta_map['Winner'].map(color_map)
+
+# Plot the map
+fig, ax = plt.subplots(1, 1, figsize=(10, 10))
+jakarta_map.boundary.plot(ax=ax)
+jakarta_map.plot(ax=ax, color=jakarta_map['Color'], legend=True)
+
+# Add a legend
+legend_elements = [plt.Line2D([0], [0], marker='o', color='w', markerfacecolor=color_map[name], markersize=10, label=name) for name in color_map]
+ax.legend(handles=legend_elements, loc='upper left')
+
+# Add titles and labels
+ax.set_title('2024 Presidential Election Results in Jakarta')
+ax.set_xlabel('Longitude')
+ax.set_ylabel('Latitude')
+
+plt.show()
+
+    #PIVOT 2
+
+color_map[PILPRES 2024] = [5.0, 4.0, 3.0, 2.0, 1.0] #insert 5.0 'green'
+jakarta_map = gpd.read_file(gpd.datasets.get_path('nybb'))  # This dataset is not Jakarta, but used for example
+jakarta_map = jakarta_map[jakarta_map['BoroName'] == 'Manhattan']  # Filtering for Manhattan as an example
+
+# Generate dummy election results for districts
+jakarta_map['Agus-Sylvi'] = [5.0, 4.0, 3.0, 2.0, 1.0]  # strengthbase 
+jakarta_map['Ahok-Djarot'] = [5.0, 4.0, 3.0, 2.0, 1.0] 
+jakarta_map['Anies-Sandi'] = [5.0, 4.0, 3.0, 2.0, 1.0]
+
+# Determine the winner in each district
+jakarta_map['Winner'] = jakarta_map[['Agus-Sylvi', 'Ahok-Djarot', 'Anies-Sandi']].idxmax(axis=1)
+
+# Define a color map for the candidates
+color_map = {'Agus-Sylvi': 'blue', 'Ahok-Djarot': 'red', 'Anies-Sandi': 'orange'}
+jakarta_map['Color'] = jakarta_map['Winner'].map(color_map)
+
+# Plot the map
+fig, ax = plt.subplots(1, 1, figsize=(10, 10))
+jakarta_map.boundary.plot(ax=ax)
+jakarta_map.plot(ax=ax, color=jakarta_map['Color'], legend=True)
+
+# Add a legend
+legend_elements = [plt.Line2D([0], [0], marker='o', color='w', markerfacecolor=color_map[name], markersize=10, label=name) for name in color_map]
+ax.legend(handles=legend_elements, loc='upper left')
+
+# Add titles and labels
+ax.set_title('2017 Gubernatorial Election')
+ax.set_xlabel('Longitude')
+ax.set_ylabel('Latitude')
+
+    #PIVOT 3
